@@ -1,0 +1,10 @@
+*{box-sizing:border-box}body{margin:0;font:14px system-ui,sans-serif;background:#0b1622;color:#dbe7f3}
+header{display:flex;gap:16px;align-items:center;padding:8px 14px;background:#10263b;flex-wrap:wrap}
+#clock{font-weight:600;color:#7fd1ff}.fic{margin-left:auto;color:#ffb74d;font-size:12px}
+main{display:flex;height:calc(100vh - 44px)}#map{flex:1}aside{width:340px;overflow:auto;padding:8px;background:#0e1d2c}
+section{border:1px solid #1d3a55;border-radius:6px;padding:8px;margin-bottom:8px}h3{margin:0 0 6px;font-size:13px;color:#7fd1ff}
+label{display:block;margin:4px 0}input,select,textarea{background:#091521;color:#dbe7f3;border:1px solid #284c6b;border-radius:4px;padding:3px}
+textarea{width:100%;height:60px}button{background:#1b4a73;color:#fff;border:0;border-radius:4px;padding:5px 9px;margin:2px;cursor:pointer}button:hover{background:#2468a0}
+#log{max-height:200px;overflow:auto;font-size:12px}#log div{padding:2px 0;border-bottom:1px solid #16304a}
+.lbl{color:#fff;text-shadow:0 0 3px #000,0 0 3px #000;font-weight:700;font-size:12px;text-align:center;white-space:nowrap;line-height:1.1}
+@media(max-width:760px){main{flex-direction:column}aside{width:100%;height:50%}#map{height:50%}}

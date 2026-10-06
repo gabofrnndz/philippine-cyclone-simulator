@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Philippine Tropical Cyclone Simulator</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="css/style.css"></head>
+<body>
+<header><b>🌀 Philippine Tropical Cyclone Simulator</b><span id="clock"></span><span class="fic">FICTIONAL SIMULATION — NOT AN ACTUAL PAGASA PRODUCT</span></header>
+<main><div id="map"></div>
+<aside>
+<section><h3>Map</h3>
+<label>Basemap <select id="basemap"><option value="osm">OpenStreetMap (online)</option><option value="ph">Philippines — built-in outline (offline)</option><option value="fict">Fictional archipelago (from seed)</option><option value="geo">Upload GeoJSON…</option></select></label>
+<input type="file" id="mapfile" accept=".geojson,.json" hidden>
+<small>GeoJSON polygons become land (landfall detection); Point features with name/pop become cities.</small>
+<label>Image overlay bounds (S,W,N,E) <input id="imgb" value="4,114,22,128"></label>
+<label>Image <input type="file" id="imgfile" accept="image/*"></label><button id="imgclr">Remove image</button></section>
+<section><h3>Clock</h3>
+<button id="play">▶ Play</button><button id="pause">⏸</button><button id="step">Step</button><button id="reset">Reset</button>
+<label>Time step <select id="ts"><option>5</option><option>10</option><option>15</option><option>30</option><option selected>60</option><option>120</option><option>180</option><option>360</option><option>720</option><option>1440</option></select> min</label>
+<label>Speed <select id="spd"><option>0.25</option><option>0.5</option><option selected>1</option><option>2</option><option>5</option><option>10</option><option>30</option><option>60</option></select>×</label>
+<label>Start (PHT) <input type="datetime-local" id="start" value="2026-10-06T19:00"></label>
+<label>Seed <input id="seed" value="2026" size="8"></label>
+<label><input type="checkbox" id="auto" checked> Automatic formation</label>
+<label>Formation chance/day <input type="number" id="prob" value="0.35" step="0.05" min="0" max="3" style="width:60px"></label>
+<label>Max cyclones <input type="number" id="maxc" value="4" min="1" max="12" style="width:50px"></label>
+<label>SST °C <input type="number" id="sst" value="29" step="0.5" style="width:60px"></label>
+<label>Wind shear (kt) <input type="number" id="shear" value="8" step="1" style="width:60px"></label>
+</section>
+<section><h3>Cyclone Identity</h3>
+<label>Naming mode <select id="nmode"><option value="auto">Automatic (name lists)</option><option value="manual">Manual</option></select></label>
+<label>Local name <input id="ln" value="Bagwis"></label>
+<label>International name <input id="inm" value="Aurora"></label>
+<label>Local designation <input id="ld" value="PH-{NN}"></label>
+<label>Intl designation <input id="idn" value="{NUMBER}W"></label>
+<label>Simulation ID <input id="sid" value="SIM-{YEAR}-{NUMBER3}"></label>
+<label>Display <select id="dfmt"><option value="local">Local (Desig)</option><option value="intl">International (Desig)</option><option value="both" selected>Local / Intl (Desig)</option><option value="desig">Desig — Local / Intl</option><option value="full">Full identity</option></select></label>
+<label>Local name list<textarea id="lnl">Bagwis
+Luntian
+Habagat
+Amihan
+Daluyong
+Silakbo</textarea></label>
+<label>Intl name list<textarea id="inl">Aurora
+Daniel
+Mira
+Nathan
+Sofia
+Victor</textarea></label>
+<small>Templates: {NUMBER} {NUMBER3} {NN} {YEAR}. Click the map in Manual mode or press “Spawn” to create a storm with these identifiers.</small>
+<button id="spawn">Spawn at map center</button></section>
+<section id="info"><h3>Selected cyclone</h3><div id="sel">Click a cyclone.</div></section>
+<section><h3>God Mode</h3>
+<button data-g="+20">Wind +20</button><button data-g="-20">Wind −20</button><button data-g="hl">Turn left</button><button data-g="hr">Turn right</button><button data-g="sp+">Faster</button><button data-g="sp-">Slower</button><button data-g="kill">Dissipate</button>
+<button id="save">Save</button><button id="load">Load</button><button id="exp">Export JSON</button></section>
+<section><h3>Fictional Satellite</h3><select id="satm"><option value="ir">Infrared</option><option value="wv">Water vapor</option><option value="vis">Visible</option></select>
+<canvas id="sat" width="316" height="200" style="width:100%;margin-top:4px;border-radius:4px"></canvas></section>
+<section><h3>Intensity chart</h3><canvas id="chart" height="160"></canvas></section>
+<section><h3>Warnings &amp; Impacts</h3><div id="warn"></div><button id="pdf">PDF bulletin</button></section>
+<section><h3>Event log</h3><div id="log"></div></section>
+</aside></main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script type="module" src="js/app.js"></script></body></html>
